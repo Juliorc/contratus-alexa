@@ -1,0 +1,14 @@
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/views/form/FormView.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/data/generator/DataGenerator.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/views/cardlist/Person.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/data/service/PersonService.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/Application.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/views/main/MainView.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/data/entity/Person.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/views/cardlist/CardListView.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/views/dashboard/DashboardView.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/views/dashboard/HealthGridItem.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/data/service/PersonRepository.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/views/masterdetail/MasterDetailView.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/views/contratus/ContratusView.java
+/home/kmoragas/Works/contratus/alexa/src/main/java/com/contratus/application/data/AbstractEntity.java

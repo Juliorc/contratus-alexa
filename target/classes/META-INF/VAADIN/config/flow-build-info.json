@@ -1,0 +1,9 @@
+{
+  "compatibilityMode": false,
+  "productionMode": false,
+  "npmFolder": "/home/kmoragas/Works/contratus/alexa",
+  "generatedFolder": "/home/kmoragas/Works/contratus/alexa/target/frontend",
+  "frontendFolder": "/home/kmoragas/Works/contratus/alexa/frontend",
+  "pnpm.enable": false,
+  "require.home.node": false
+}
