@@ -1,0 +1,5 @@
+defaultJavaCompanionFolder=src/main/java/com/contratus/application/views/form
+defaultTemplateFolder=frontend/src/views/form
+eclipse.preferences.version=1
+serverAddress=192.168.19.135
+serverPort=44453

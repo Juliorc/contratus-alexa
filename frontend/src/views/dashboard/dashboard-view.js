@@ -1,147 +1,120 @@
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
-
 import '@vaadin/vaadin-board/vaadin-board.js';
+import '@vaadin/vaadin-board/vaadin-board-row.js';
 import '@vaadin/vaadin-charts/vaadin-chart.js';
-import '@vaadin/vaadin-lumo-styles/all-imports.js';
-
+import '@vaadin/vaadin-grid/src/vaadin-grid.js';
+import '../../../styles/shared-styles.js';
+import '../../../styles/alexa-charts-theme.js';
+import '../storefront/order-card.js';
+import './dashboard-counter-label.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 class DashboardView extends PolymerElement {
   static get template() {
     return html`
-      <style include="shared-styles lumo-badge lumo-typography">
-        :host {
-          background-color: var(--lumo-contrast-10pct);
-          box-sizing: border-box;
-          display: block;
-          font-size: var(--lumo-font-size-m);
-          height: 100%;
-          overflow: auto;
-          padding: var(--lumo-space-m) var(--lumo-space-l);
-        }
+    <style include="shared-styles">
+      :host {
+        width: 100%;
+        -webkit-overflow-scrolling: touch;
+        overflow: auto;
+      }
 
-        vaadin-board {
-          margin: 0 auto;
-          max-width: 1024px;
-        }
+      .vaadin-board-cell {
+        padding: var(--lumo-space-s);
+      }
 
-        /* Wrapper */
-        .wrapper {
-          display: flex;
-          padding: var(--lumo-space-s);
-        }
+      *::-ms-backdrop,
+      .vaadin-board-cell {
+        padding: 0;
+      }
 
-        /* Card */
-        .card {
-          align-items: baseline;
-          background-color: var(--lumo-base-color);
-          border-radius: var(--lumo-border-radius);
-          box-shadow: var(--lumo-box-shadow-xs);
-          display: flex;
-          flex-direction: column;
-          overflow: hidden;
-          width: 100%;
-        }
+      .column-chart {
+        box-shadow: 0 2px 5px 0 rgba(23, 68, 128, 0.1);
+        border-radius: 4px;
+        height: calc(20vh - 64px) !important;
+        min-height: 150px;
+      }
 
-        .card h2 {
-          margin-bottom: 0;
-          margin-top: var(--lumo-space-m);
-        }
+      #yearlySalesGraph {
+        height: calc(30vh - 64px) !important;
+        min-height: 200px;
+      }
 
-        .card h3 {
-          margin-bottom: var(--lumo-space-xs);
-          margin-right: var(--lumo-space-m);
-          margin-left: var(--lumo-space-m);
-          margin-top: var(--lumo-space-m);
-        }
+      #monthlyProductSplit,
+      #ordersGrid {
+        border-radius: 4px;
+        box-shadow: 0 2px 5px 0 rgba(23, 68, 128, 0.1);
+        height: calc(40vh - 64px) !important;
+        min-height: 355px;
+      }
 
-        /* Spacing */
-        .space-m {
-          padding: var(--lumo-space-m);
-        }
+      vaadin-board-row.custom-board-row {
+        --vaadin-board-width-medium: 1440px;
+        --vaadin-board-width-small: 1024px;
+      }
 
-        /* Text colors */
-        .error-text {
-          color: var(--lumo-error-text-color);
-        }
+    </style>
 
-        .primary-text {
-          color: var(--lumo-primary-text-color);
-        }
-
-        .secondary-text {
-          color: var(--lumo-secondary-text-color);
-        }
-
-        .success-text {
-          color: var(--lumo-success-text-color);
-        }
-
-        /* Charts */
-        vaadin-chart {
-          padding-top: var(--lumo-space-s);
-        }
-
-        /* Grid */
-        vaadin-grid {
-          height: 300px;
-        }
-      </style>
-
-      <vaadin-board>
-        <vaadin-board-row>
-          <div class="wrapper">
-            <div class="card space-m">
-              <span theme="badge">Users</span>
-              <h2 class="primary-text">[[currentUsers]]</h2>
-              <span class="secondary-text">Current users in the app</span>
-            </div>
-          </div>
-          <div class="wrapper">
-            <div class="card space-m">
-              <span theme="badge success">Events</span>
-              <h2 class="success-text">[[numEvents]]</h2>
-              <span class="secondary-text">Events from the views</span>
-            </div>
-          </div>
-          <div class="wrapper">
-            <div class="card space-m">
-              <span theme="badge error">Conversion</span>
-              <h2 class="error-text">[[conversionRate]]%</h2>
-              <span class="secondary-text">User conversion rate</span>
-            </div>
-          </div>
-        </vaadin-board-row>
-        <div class="wrapper">
-          <div class="card">
-            <vaadin-chart type="column" id="monthlyVisitors" title="Monthly visitors per city"> </vaadin-chart>
-          </div>
+    <vaadin-board>
+      <vaadin-board-row>
+        <dashboard-counter-label id="todayCount" class="green">
+          <vaadin-chart id="todayCountChart" class="counter"></vaadin-chart>
+        </dashboard-counter-label>
+        <dashboard-counter-label id="notAvailableCount" class="red"></dashboard-counter-label>
+        <dashboard-counter-label id="newCount" class="blue"></dashboard-counter-label>
+        <dashboard-counter-label id="tomorrowCount" class="gray"></dashboard-counter-label>
+      </vaadin-board-row>
+      <vaadin-board-row>
+        <div class="vaadin-board-cell">
+          <vaadin-chart id="deliveriesThisMonth" class="column-chart"></vaadin-chart>
         </div>
-        <vaadin-board-row>
-          <div class="wrapper">
-            <div class="card">
-              <h3>Service health</h3>
-              <vaadin-grid id="grid" theme="no-border"></vaadin-grid>
-            </div>
-          </div>
-          <div class="wrapper">
-            <div class="card">
-              <vaadin-chart id="responseTimes" title="Response times"> </vaadin-chart>
-            </div>
-          </div>
-        </vaadin-board-row>
-      </vaadin-board>
-    `;
+        <div class="vaadin-board-cell">
+          <vaadin-chart id="deliveriesThisYear" class="column-chart"></vaadin-chart>
+        </div>
+      </vaadin-board-row>
+      <vaadin-board-row>
+        <vaadin-chart id="yearlySalesGraph" class="yearly-sales"></vaadin-chart>
+      </vaadin-board-row>
+      <vaadin-board-row class="custom-board-row">
+        <div class="vaadin-board-cell">
+          <vaadin-chart id="monthlyProductSplit" class="product-split-donut"></vaadin-chart>
+        </div>
+        <div class="vaadin-board-cell">
+          <vaadin-grid id="ordersGrid" theme="orders dashboard"></vaadin-grid>
+        </div>
+      </vaadin-board-row>
+    </vaadin-board>
+`;
   }
 
   static get is() {
     return 'dashboard-view';
   }
 
-  static get properties() {
-    return {
-      // Declare your properties here.
-    };
+  // This method is overridden to measure the page load performance and can be safely removed
+  // if there is no need for that.
+  ready() {
+    super.ready();
+    this._chartsLoaded = new Promise((resolve, reject) => {
+      // save the 'resolve' callback to trigger it later from the server
+      this._chartsLoadedResolve = () => {
+        resolve();
+      };
+    });
+
+    this._gridLoaded = new Promise((resolve, reject) => {
+      const listener = () => {
+        if (!this.$['ordersGrid'].loading) {
+          this.$['ordersGrid'].removeEventListener('loading-changed', listener);
+          resolve();
+        }
+      };
+      this.$['ordersGrid'].addEventListener('loading-changed', listener);
+    });
+
+    Promise.all([this._chartsLoaded, this._gridLoaded]).then(() => {
+      window.performance.mark && window.performance.mark('alexa-page-loaded');
+    });
   }
 }
 
-customElements.define(DashboardView.is, DashboardView);
+window.customElements.define(DashboardView.is, DashboardView);

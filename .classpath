@@ -28,5 +28,14 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/kmoragas/.m2/repository/com/vaadin/flow-server/3.0.5/flow-server-3.0.5.jar" sourcepath="/home/kmoragas/.m2/repository/com/vaadin/flow-server/3.0.5/flow-server-3.0.5-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.vaadin"/>
+			<attribute name="maven.artifactId" value="flow-server"/>
+			<attribute name="maven.version" value="3.0.5"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
