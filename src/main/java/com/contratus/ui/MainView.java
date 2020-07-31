@@ -124,6 +124,7 @@ public class MainView extends AppLayout {
 		final List<Tab> tabs = new ArrayList<>(4);
 		tabs.add(createTab(VaadinIcon.EDIT, TITLE_STOREFRONT, StorefrontView.class));
 		tabs.add(createTab(VaadinIcon.CLOCK,TITLE_DASHBOARD, DashboardView.class));
+
 		if (SecurityUtils.isAccessGranted(UsersView.class)) {
 			tabs.add(createTab(VaadinIcon.USER,TITLE_USERS, UsersView.class));
 		}
