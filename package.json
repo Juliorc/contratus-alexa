@@ -43,9 +43,9 @@
     "@vaadin/vaadin-lumo-styles": "1.5.0",
     "@vaadin/vaadin-material-styles": "1.2.3",
     "@vaadin/vaadin-rich-text-editor": "1.1.1",
-    "@polymer/iron-ajax": "3.0.1",
     "@vaadin/router": "^1.6.0",
-    "@vaadin/flow-frontend": "./target/flow-frontend"
+    "@vaadin/flow-frontend": "./target/flow-frontend",
+    "@polymer/iron-ajax": "3.0.1"
   },
   "devDependencies": {
     "webpack": "4.42.0",

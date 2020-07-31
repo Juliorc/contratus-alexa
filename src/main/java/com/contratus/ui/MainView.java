@@ -1,11 +1,5 @@
 package com.contratus.ui;
 
-import static com.contratus.ui.utils.Constants.TITLE_DASHBOARD;
-import static com.contratus.ui.utils.Constants.TITLE_LOGOUT;
-import static com.contratus.ui.utils.Constants.TITLE_PRODUCTS;
-import static com.contratus.ui.utils.Constants.TITLE_STOREFRONT;
-import static com.contratus.ui.utils.Constants.TITLE_USERS;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +30,8 @@ import com.contratus.ui.views.admin.products.ProductsView;
 import com.contratus.ui.views.admin.users.UsersView;
 import com.contratus.ui.views.dashboard.DashboardView;
 import com.contratus.ui.views.storefront.StorefrontView;
+
+import static com.contratus.ui.utils.Constants.*;
 
 public class MainView extends AppLayout {
 
@@ -128,7 +124,6 @@ public class MainView extends AppLayout {
 		final List<Tab> tabs = new ArrayList<>(4);
 		tabs.add(createTab(VaadinIcon.EDIT, TITLE_STOREFRONT, StorefrontView.class));
 		tabs.add(createTab(VaadinIcon.CLOCK,TITLE_DASHBOARD, DashboardView.class));
-		
 		if (SecurityUtils.isAccessGranted(UsersView.class)) {
 			tabs.add(createTab(VaadinIcon.USER,TITLE_USERS, UsersView.class));
 		}
