@@ -1,5 +1,7 @@
 package com.contratus.ui.views.alexa;
 
+import com.contratus.ui.MainView;
+import com.vaadin.flow.router.Route;
 import com.vaadin.flow.templatemodel.TemplateModel;
 import com.vaadin.flow.component.Tag;
 import com.vaadin.flow.component.dependency.JsModule;
@@ -13,6 +15,7 @@ import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
  */
 @Tag("share-contract")
 @JsModule("./src/views/alexa/share-contract.js")
+@Route(value = "shareContract", layout = MainView.class)
 public class ShareContract extends PolymerTemplate<ShareContract.ShareContractModel> {
 
     /**
