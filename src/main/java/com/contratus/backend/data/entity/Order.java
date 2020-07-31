@@ -1,8 +1,8 @@
 package com.contratus.backend.data.entity;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +11,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
@@ -29,11 +28,9 @@ import com.contratus.backend.data.OrderState;
 
 @Entity(name = "OrderInfo") // "Order" is a reserved word
 @NamedEntityGraphs({@NamedEntityGraph(name = Order.ENTITY_GRAPTH_BRIEF, attributeNodes = {
-		@NamedAttributeNode("customer"),
-		@NamedAttributeNode("pickupLocation")
+		@NamedAttributeNode("customer")
 }),@NamedEntityGraph(name = Order.ENTITY_GRAPTH_FULL, attributeNodes = {
 		@NamedAttributeNode("customer"),
-		@NamedAttributeNode("pickupLocation"),
 		@NamedAttributeNode("items"),
 		@NamedAttributeNode("history")
 })})
@@ -45,13 +42,9 @@ public class Order extends AbstractEntity implements OrderSummary {
 
 	@NotNull(message = "{alexa.due.date.required}")
 	private LocalDate dueDate;
-
-	@NotNull(message = "{alexa.due.time.required}")
-	private LocalTime dueTime;
-
-	@NotNull(message = "{alexa.pickup.location.required}")
-	@ManyToOne
-	private PickupLocation pickupLocation;
+	
+	@NotNull
+	private LocalDate startDate;
 
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
@@ -101,23 +94,14 @@ public class Order extends AbstractEntity implements OrderSummary {
 	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
-
+	
 	@Override
-	public LocalTime getDueTime() {
-		return dueTime;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public void setDueTime(LocalTime dueTime) {
-		this.dueTime = dueTime;
-	}
-
-	@Override
-	public PickupLocation getPickupLocation() {
-		return pickupLocation;
-	}
-
-	public void setPickupLocation(PickupLocation pickupLocation) {
-		this.pickupLocation = pickupLocation;
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
 	}
 
 	@Override
@@ -161,8 +145,7 @@ public class Order extends AbstractEntity implements OrderSummary {
 
 	@Override
 	public String toString() {
-		return "Order{" + "dueDate=" + dueDate + ", dueTime=" + dueTime + ", pickupLocation=" + pickupLocation
-				+ ", customer=" + customer + ", items=" + items + ", state=" + state + '}';
+		return "{" + "startDate=" + startDate + ", dueDate=" + dueDate + ", customer=" + customer + ", items=" + items + ", state=" + state + '}';
 	}
 
 	@Override

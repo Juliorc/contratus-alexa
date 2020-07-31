@@ -48,10 +48,10 @@ class MasterDetailView extends PolymerElement {
             theme="spacing"
           >
             <vaadin-button theme="tertiary" slot="" id="cancel">
-              Cancel
+              Cancelar
             </vaadin-button>
             <vaadin-button theme="primary" id="save">
-              Save
+              Guardar
             </vaadin-button>
           </vaadin-horizontal-layout>
         </div>

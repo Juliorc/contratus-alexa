@@ -74,14 +74,11 @@ public class OrderEditor extends PolymerTemplate<OrderEditor.Model> {
 	@Id("status")
 	private ComboBox<OrderState> status;
 
+	@Id("startDate")
+	private DatePicker startDate;
+	
 	@Id("dueDate")
 	private DatePicker dueDate;
-
-	@Id("dueTime")
-	private ComboBox<LocalTime> dueTime;
-
-	@Id("pickupLocation")
-	private ComboBox<PickupLocation> pickupLocation;
 
 	@Id("customerName")
 	private TextField customerName;
@@ -132,17 +129,9 @@ public class OrderEditor extends PolymerTemplate<OrderEditor.Model> {
 
 		dueDate.setRequired(true);
 		binder.bind(dueDate, "dueDate");
-
-		SortedSet<LocalTime> timeValues = IntStream.rangeClosed(8, 16).mapToObj(i -> LocalTime.of(i, 0))
-				.collect(Collectors.toCollection(TreeSet::new));
-		dueTime.setItems(timeValues);
-		dueTime.setItemLabelGenerator(localTimeConverter::encode);
-		binder.bind(dueTime, "dueTime");
-
-		pickupLocation.setItemLabelGenerator(createItemLabelGenerator(PickupLocation::getName));
-		pickupLocation.setDataProvider(locationDataProvider);
-		binder.bind(pickupLocation, "pickupLocation");
-		pickupLocation.setRequired(false);
+		
+		startDate.setRequired(true);
+		binder.bind(startDate, "startDate");
 
 		customerName.setRequired(true);
 		binder.bind(customerName, "customer.fullName");
@@ -150,6 +139,7 @@ public class OrderEditor extends PolymerTemplate<OrderEditor.Model> {
 		customerNumber.setRequired(true);
 		binder.bind(customerNumber, "customer.phoneNumber");
 
+		customerDetails.setRequired(true);
 		binder.bind(customerDetails, "customer.details");
 
 		itemsEditor.setRequiredIndicatorVisible(true);

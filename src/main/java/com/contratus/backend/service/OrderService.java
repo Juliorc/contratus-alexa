@@ -1,7 +1,6 @@
 package com.contratus.backend.service;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -180,8 +179,8 @@ public class OrderService implements CrudService<Order> {
 	@Transactional
 	public Order createNew(User currentUser) {
 		Order order = new Order(currentUser);
-		order.setDueTime(LocalTime.of(16, 0));
 		order.setDueDate(LocalDate.now());
+		order.setStartDate(LocalDate.now());
 		return order;
 	}
 

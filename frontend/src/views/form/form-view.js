@@ -53,10 +53,10 @@ class FormView extends PolymerElement {
           style="display:flex;flex-wrap:wrap-reverse;width:100%;justify-content:flex-end;"
         >
           <vaadin-button theme="tertiary" id="cancel" slot="">
-            Cancel
+            Cancelar
           </vaadin-button>
           <vaadin-button theme="primary" id="save">
-            Save
+            Guardar
           </vaadin-button>
         </vaadin-horizontal-layout>
       </vaadin-vertical-layout>

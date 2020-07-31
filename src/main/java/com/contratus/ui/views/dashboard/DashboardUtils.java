@@ -29,12 +29,8 @@ public class DashboardUtils {
 
 			OrderSummary order = ordersIterator.next();
 			if (isOrderNextToDeliver(order, date, time)) {
-				if (order.getDueDate().isEqual(date))
-					ordersCountData.setSubtitle(String.format(NEXT_DELIVERY_PATTERN, order.getDueTime()));
-				else
-					ordersCountData.setSubtitle(String.format(NEXT_DELIVERY_PATTERN,
-							order.getDueDate().getMonthValue() + "/" + order.getDueDate().getDayOfMonth()));
-
+				ordersCountData.setSubtitle(String.format(NEXT_DELIVERY_PATTERN,
+						order.getDueDate().getMonthValue() + "/" + order.getDueDate().getDayOfMonth()));
 				break;
 			}
 
@@ -45,7 +41,7 @@ public class DashboardUtils {
 	private static boolean isOrderNextToDeliver(OrderSummary order, LocalDate nowDate, LocalTime nowTime) {
 		// ready order starting from current time
 		return order.getState() == OrderState.READY
-				&& ((order.getDueDate().isEqual(nowDate) && order.getDueTime().isAfter(nowTime))
+				&& (order.getDueDate().isEqual(nowDate)
 						|| order.getDueDate().isAfter(nowDate));
 	}
 
@@ -66,12 +62,6 @@ public class DashboardUtils {
 			OrderSummary order = ordersIterator.next();
 			if (order.getDueDate().isBefore(date)) {
 				continue;
-			}
-
-			if (order.getDueDate().isEqual(date)) {
-				if (order.getDueTime().isBefore(minTime)) {
-					minTime = order.getDueTime();
-				}
 			}
 
 			if (order.getDueDate().isAfter(date)) {

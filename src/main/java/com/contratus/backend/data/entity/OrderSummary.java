@@ -1,7 +1,6 @@
 package com.contratus.backend.data.entity;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import com.contratus.backend.data.OrderState;
@@ -16,10 +15,8 @@ public interface OrderSummary {
 	List<OrderItem> getItems();
 
 	LocalDate getDueDate();
-
-	LocalTime getDueTime();
-
-	PickupLocation getPickupLocation();
+	
+	LocalDate getStartDate();
 
 	Integer getTotalPrice();
 }

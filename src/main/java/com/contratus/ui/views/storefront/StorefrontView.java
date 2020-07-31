@@ -51,9 +51,9 @@ public class StorefrontView extends PolymerTemplate<TemplateModel>
 
 	private ConfirmDialog confirmation;
 
-	private final OrderEditor orderEditor;
+	private OrderEditor orderEditor;
 
-	private final OrderDetails orderDetails = new OrderDetails();
+	private OrderDetails orderDetails = new OrderDetails();
 
 	private final OrderPresenter presenter;
 
@@ -62,7 +62,7 @@ public class StorefrontView extends PolymerTemplate<TemplateModel>
 		this.presenter = presenter;
 		this.orderEditor = orderEditor;
 
-		searchBar.setActionText("New order");
+		searchBar.setActionText("Nuevo Contrato");
 		searchBar.setCheckboxText("Show past orders");
 		searchBar.setPlaceHolder("Search");
 
@@ -135,6 +135,14 @@ public class StorefrontView extends PolymerTemplate<TemplateModel>
 
 	OrderDetails getOpenedOrderDetails() {
 		return orderDetails;
+	}
+
+	void setOpenedOrderEditor(OrderEditor orderEditor) {
+		this.orderEditor = orderEditor;
+	}
+
+	void setOpenedOrderDetails(OrderDetails orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 
 	Grid<Order> getGrid() {

@@ -12,10 +12,11 @@ import '../../components/utils-mixin.js';
 import './order-item-editor.js';
 import '../../../styles/shared-styles.js';
 import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
 class OrderEditor extends window.ScrollShadowMixin(PolymerElement) {
   static get template() {
     return html`
-    <style include="shared-styles">
+<style include="shared-styles">
       :host {
         display: flex;
         flex-direction: column;
@@ -39,56 +40,46 @@ class OrderEditor extends window.ScrollShadowMixin(PolymerElement) {
         width: 10em;
       }
     </style>
-
-    <div class="scrollable flex1" id="main">
-      <h2 id="title">New order</h2>
-
-      <div class="meta-row" id="metaContainer">
-        <vaadin-combo-box class="status" id="status"></vaadin-combo-box>
-        <span class="dim">Order #<span id="orderNumber"></span></span>
-      </div>
-
-      <vaadin-form-layout id="form1">
-
-        <vaadin-form-layout id="form2">
-          <vaadin-date-picker label="Due" id="dueDate">
-          </vaadin-date-picker>
-          <vaadin-combo-box id="dueTime">
-            <iron-icon slot="prefix" icon="vaadin:clock"></iron-icon>
-          </vaadin-combo-box>
-          <vaadin-combo-box id="pickupLocation" colspan="2">
-            <iron-icon slot="prefix" icon="vaadin:at"></iron-icon>
-          </vaadin-combo-box>
-        </vaadin-form-layout>
-
-        <vaadin-form-layout id="form3" colspan="3">
-          <vaadin-text-field id="customerName" label="Customer" colspan="2">
-            <iron-icon slot="prefix" icon="vaadin:user"></iron-icon>
-          </vaadin-text-field>
-
-          <vaadin-text-field id="customerNumber" label="Phone number">
-            <iron-icon slot="prefix" icon="vaadin:phone"></iron-icon>
-          </vaadin-text-field>
-
-          <vaadin-text-field id="customerDetails" label="Additional Details" colspan="2"></vaadin-text-field>
-
-          <vaadin-form-item colspan="3">
-            <label slot="label">Products</label>
-          </vaadin-form-item>
-          <div id="itemsContainer" colspan="3"></div>
-        </vaadin-form-layout>
-
-      </vaadin-form-layout>
-    </div>
-
-    <buttons-bar id="footer" no-scroll\$="[[noScroll]]">
-      <vaadin-button slot="left" id="cancel">Cancel</vaadin-button>
-      <div slot="info" class="total">Total [[totalPrice]]</div>
-      <vaadin-button slot="right" id="review" theme="primary">
-        Review order
-        <iron-icon icon="vaadin:arrow-right" slot="suffix"></iron-icon>
-      </vaadin-button>
-    </buttons-bar>
+<div class="scrollable flex1" id="main" style="max-width: 1100px; margin: 0 auto;">
+ <h2 id="title" style="text-align: center;">Nuevo Contrato</h2>
+ <div class="meta-row" id="metaContainer" style="justify-content: space-around;">
+  <vaadin-combo-box class="status" id="status"></vaadin-combo-box>
+  <span class="dim">Contrato #<span id="orderNumber"></span></span>
+ </div>
+ <vaadin-form-layout id="form1" style="margin: 0 auto;">
+  <vaadin-form-layout id="form3" colspan="4" style="margin: 0 auto;">
+   <vaadin-form-layout id="form2">
+    <vaadin-date-picker label="Fecha Inicio" id="startDate"></vaadin-date-picker>
+   </vaadin-form-layout>
+   <vaadin-form-layout id="form2">
+    <vaadin-date-picker label="Fecha Final" id="dueDate" style="width: 100%;"></vaadin-date-picker>
+   </vaadin-form-layout>
+   <vaadin-text-field id="customerName" label="Cliente" colspan="2">
+    <iron-icon slot="prefix" icon="vaadin:user"></iron-icon>
+   </vaadin-text-field>
+   <vaadin-text-field id="customerNumber" label="Numero de telefono">
+    <iron-icon slot="prefix" icon="vaadin:phone"></iron-icon>
+   </vaadin-text-field>
+   <vaadin-text-field id="customerDetails" label="Descripcion" colspan="2"></vaadin-text-field>
+   <vaadin-form-item colspan="3">
+    <label slot="label">Productos o servicios</label>
+   </vaadin-form-item>
+   <div id="itemsContainer" colspan="3"></div>
+  </vaadin-form-layout>
+ </vaadin-form-layout>
+</div>
+<buttons-bar id="footer" no-scroll\$="[[noScroll]]" style="max-width: 1100px; margin: 0 auto; width: 100%;">
+ <vaadin-button slot="left" id="cancel">
+   Cancelar 
+ </vaadin-button>
+ <div slot="info" class="total">
+   Total [[totalPrice]] 
+ </div>
+ <vaadin-button slot="right" id="review" theme="primary">
+   Confirmar datos 
+  <iron-icon icon="vaadin:arrow-right" slot="suffix"></iron-icon>
+ </vaadin-button>
+</buttons-bar>
 `;
   }
 
@@ -129,4 +120,5 @@ class OrderEditor extends window.ScrollShadowMixin(PolymerElement) {
   }
 }
 
+console.log('aquiiiii');
 window.customElements.define(OrderEditor.is, OrderEditor);

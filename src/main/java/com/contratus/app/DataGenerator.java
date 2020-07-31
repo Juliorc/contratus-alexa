@@ -1,9 +1,6 @@
 package com.contratus.app;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,10 +30,8 @@ import com.contratus.backend.repositories.UserRepository;
 @SpringComponent
 public class DataGenerator implements HasLogger {
 
-	private static final String[] FILLING = new String[] { "Strawberry", "Chocolate", "Blueberry", "Raspberry",
-			"Vanilla" };
-	private static final String[] TYPE = new String[] { "Cake", "Pastry", "Tart", "Muffin", "Biscuit", "Bread", "Bagel",
-			"Bun", "Brownie", "Cookie", "Cracker", "Cheese Cake" };
+	private static final String[] FILLING = new String[] { "Desayuno", "Tour a caballo", "Habitacion", "Estadia completa" };
+	private static final String[] TYPE = new String[] { "completo", "sencillo", "doble", "triple", "cuadruple" };
 	private static final String[] FIRST_NAME = new String[] { "Ori", "Amanda", "Octavia", "Laurel", "Lael", "Delilah",
 			"Jason", "Skyler", "Arsenio", "Haley", "Lionel", "Sylvia", "Jessica", "Lester", "Ferdinand", "Elaine",
 			"Griffin", "Kerry", "Dominique" };
@@ -106,7 +101,7 @@ public class DataGenerator implements HasLogger {
 	}
 
 	private String getRandomPhone() {
-		return "+1-555-" + String.format("%04d", random.nextInt(10000));
+		return "+506-8888-" + String.format("%04d", random.nextInt(10000));
 	}
 
 	private void createOrders(OrderRepository orderRepo, Supplier<Product> productSupplier,
@@ -117,8 +112,7 @@ public class DataGenerator implements HasLogger {
 		LocalDate newestDate = now.plusMonths(1L);
 
 		// Create first today's order
-		Order order = createOrder(productSupplier, pickupLocationSupplier, barista, baker, now);
-		order.setDueTime(LocalTime.of(8, 0));
+		Order order = createOrder(productSupplier, pickupLocationSupplier, barista, baker, now, newestDate);
 		order.setHistory(order.getHistory().subList(0, 1));
 		order.setItems(order.getItems().subList(0, 1));
 		orderRepo.save(order);
@@ -131,19 +125,18 @@ public class DataGenerator implements HasLogger {
 			double multiplier = 1.0 + 0.03 * relativeMonth;
 			int ordersThisDay = (int) (random.nextInt(10) + 1 * multiplier);
 			for (int i = 0; i < ordersThisDay; i++) {
-				orderRepo.save(createOrder(productSupplier, pickupLocationSupplier, barista, baker, dueDate));
+				orderRepo.save(createOrder(productSupplier, pickupLocationSupplier, barista, baker, now, dueDate));
 			}
 		}
 	}
 
 	private Order createOrder(Supplier<Product> productSupplier, Supplier<PickupLocation> pickupLocationSupplier,
-			User barista, User baker, LocalDate dueDate) {
+			User barista, User baker, LocalDate startDate, LocalDate dueDate) {
 		Order order = new Order(barista);
 
 		fillCustomer(order.getCustomer());
-		order.setPickupLocation(pickupLocationSupplier.get());
 		order.setDueDate(dueDate);
-		order.setDueTime(getRandomDueTime());
+		order.setStartDate(startDate);
 		order.changeState(barista, getRandomState(order.getDueDate()));
 
 		int itemCount = random.nextInt(3);
@@ -176,21 +169,15 @@ public class DataGenerator implements HasLogger {
 		ArrayList<HistoryItem> history = new ArrayList<>();
 		HistoryItem item = new HistoryItem(barista, "Order placed");
 		item.setNewState(OrderState.NEW);
-		LocalDateTime orderPlaced = order.getDueDate().minusDays(random.nextInt(5) + 2L).atTime(random.nextInt(10) + 7,
-				00);
-		item.setTimestamp(orderPlaced);
 		history.add(item);
 		if (order.getState() == OrderState.CANCELLED) {
 			item = new HistoryItem(barista, "Order cancelled");
 			item.setNewState(OrderState.CANCELLED);
-			item.setTimestamp(orderPlaced.plusDays(random
-					.nextInt((int) orderPlaced.until(order.getDueDate().atTime(order.getDueTime()), ChronoUnit.DAYS))));
 			history.add(item);
 		} else if (order.getState() == OrderState.CONFIRMED || order.getState() == OrderState.DELIVERED
 				|| order.getState() == OrderState.PROBLEM || order.getState() == OrderState.READY) {
 			item = new HistoryItem(baker, "Order confirmed");
 			item.setNewState(OrderState.CONFIRMED);
-			item.setTimestamp(orderPlaced.plusDays(random.nextInt(2)).plusHours(random.nextInt(5)));
 			history.add(item);
 
 			if (order.getState() == OrderState.PROBLEM) {
@@ -206,7 +193,7 @@ public class DataGenerator implements HasLogger {
 				if (order.getState() == OrderState.DELIVERED) {
 					item = new HistoryItem(baker, "Order delivered");
 					item.setNewState(OrderState.DELIVERED);
-					item.setTimestamp(order.getDueDate().atTime(order.getDueTime().minusMinutes(random.nextInt(120))));
+					item.setTimestamp(order.getDueDate().atStartOfDay());
 					history.add(item);
 				}
 			}
@@ -222,12 +209,6 @@ public class DataGenerator implements HasLogger {
 			}
 		}
 		return false;
-	}
-
-	private LocalTime getRandomDueTime() {
-		int time = 8 + 4 * random.nextInt(3);
-
-		return LocalTime.of(time, 0);
 	}
 
 	private OrderState getRandomState(LocalDate due) {
@@ -316,7 +297,7 @@ public class DataGenerator implements HasLogger {
 				secondFilling = getRandom(FILLING);
 			} while (secondFilling.equals(firstFilling));
 
-			name = firstFilling + " " + secondFilling;
+			name = firstFilling + " y " + secondFilling;
 		} else {
 			name = firstFilling;
 		}

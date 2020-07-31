@@ -44,7 +44,7 @@ class OrderItemEditor extends PolymerElement {
         <vaadin-integer-field id="amount" colspan="4" index="[[index]]" class="self-start"
           min="1" max="15" has-controls prevent-invalid-input></vaadin-integer-field>
         <div id="price" colspan="4" class="money">[[price]]</div>
-        <vaadin-text-field id="comment" colspan="12" placeholder="Details" index="[[index]]"></vaadin-text-field>
+        <vaadin-text-field id="comment" colspan="12" placeholder="Detalles" index="[[index]]"></vaadin-text-field>
       </vaadin-form-layout>
 
       <vaadin-button class="delete self-start" id="delete" colspan="2" index="[[index]]">
