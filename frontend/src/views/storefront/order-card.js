@@ -170,7 +170,7 @@ class OrderCard extends PolymerElement {
    </div>
   </div>
   <div>
-   <a href="/frontend/src/views/alexa/share-contract.js">
+   <a router-link href="shareContract">
     <vaadin-button>
       Compartir 
     </vaadin-button></a>

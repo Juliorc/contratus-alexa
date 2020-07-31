@@ -88,7 +88,7 @@ public class MainView extends AppLayout {
         Image profileImage = new Image("images/logos/18.png", "Profile img");
         profileImage.setHeight("60px");
         logoLayout.add(profileImage);
-        logoLayout.add(new H4("Kevin Moraga"));
+        logoLayout.add(new H4("Contratus Menu"));
         layout.add(logoLayout, menu);
         return layout;
     }
