@@ -1,0 +1,44 @@
+[
+    {
+        "transactionName": "contratoTurismoExists",
+        "transactionLabel": "A test contratoTurismoExists transaction",
+        "arguments": [
+            "001"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "createContratoTurismo",
+        "transactionLabel": "A test createContratoTurismo transaction",
+        "arguments": [
+            "001",
+            "some value"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "readContratoTurismo",
+        "transactionLabel": "A test readContratoTurismo transaction",
+        "arguments": [
+            "001"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "updateContratoTurismo",
+        "transactionLabel": "A test updateContratoTurismo transaction",
+        "arguments": [
+            "001",
+            "some other value"
+        ],
+        "transientData": {}
+    },
+    {
+        "transactionName": "deleteContratoTurismo",
+        "transactionLabel": "A test deleteContratoTurismo transaction",
+        "arguments": [
+            "001"
+        ],
+        "transientData": {}
+    }
+]
